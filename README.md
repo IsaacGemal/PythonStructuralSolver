@@ -2,6 +2,6 @@
 
 This Python script performs simple structural analysis, calculating displacements and reactions in a predefined structural system.
 
-It's adapted from a college MATLAB assignment I did a few years back (though quite frankly I don't remember how it works).
+It's adapted from a college MATLAB assignment I did a few years back (though quite frankly I have no idea how it works now).
 
-Translated from Matlab to Python with the help of GPT-4 because matlab code is just not fun or easy to work with.
+Translated from Matlab to Python with tremendous help from of GPT-4 because matlab code is just not fun or easy to work with.
