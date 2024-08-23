@@ -1,4 +1,4 @@
-# Baisc Structural Analysis in Python
+# Basic Structural Analysis in Python
 
 This Python script performs simple structural analysis, calculating displacements and reactions in a predefined structural system.
 
