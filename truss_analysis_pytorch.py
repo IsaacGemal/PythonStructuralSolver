@@ -1,38 +1,47 @@
 import torch
 
 # Data for Elements and Nodes
-info = torch.tensor([
-    [1, 2, 3, 4],
-    [1, 2, 9, 10],
-    [3, 4, 9, 10],
-    [3, 4, 5, 6],
-    [5, 6, 7, 8],
-    [5, 6, 9, 10],
-    [7, 8, 9, 10],
-    [7, 8, 11, 12],
-    [9, 10, 11, 12],
-], dtype=torch.long)
+info = torch.tensor(
+    [
+        [1, 2, 3, 4],
+        [1, 2, 9, 10],
+        [3, 4, 9, 10],
+        [3, 4, 5, 6],
+        [5, 6, 7, 8],
+        [5, 6, 9, 10],
+        [7, 8, 9, 10],
+        [7, 8, 11, 12],
+        [9, 10, 11, 12],
+    ],
+    dtype=torch.long,
+)
 
-ele = torch.tensor([
-    [1, 0, 0, 10, 20],
-    [2, 0, 0, 20, 10],
-    [3, 10, 20, 20, 10],
-    [4, 16, 20, 20, 20],
-    [5, 20, 20, 30, 20],
-    [6, 20, 20, 20, 10],
-    [7, 30, 20, 20, 10],
-    [8, 30, 20, 40, 0],
-    [9, 20, 10, 40, 0],
-], dtype=torch.float)
+ele = torch.tensor(
+    [
+        [1, 0, 0, 10, 20],
+        [2, 0, 0, 20, 10],
+        [3, 10, 20, 20, 10],
+        [4, 16, 20, 20, 20],
+        [5, 20, 20, 30, 20],
+        [6, 20, 20, 20, 10],
+        [7, 30, 20, 20, 10],
+        [8, 30, 20, 40, 0],
+        [9, 20, 10, 40, 0],
+    ],
+    dtype=torch.float,
+)
 
 # Supports
 supports = torch.tensor([1, 2, 12], dtype=torch.long)
 
 # Forces at Nodes
-forces = torch.tensor([
-    [7, 20],
-    [10, -50],
-], dtype=torch.float)
+forces = torch.tensor(
+    [
+        [7, 20],
+        [10, -50],
+    ],
+    dtype=torch.float,
+)
 
 A = 10.0  # in^2
 E = 29000.0  # ksi
@@ -54,12 +63,14 @@ for i in range(enum):
     dy /= c
     dx /= c
     T = torch.tensor([[dx, dy, 0, 0], [0, 0, dx, dy]], dtype=torch.float)
-    kee = (A * E) / (c * 12) * torch.tensor([[1.0, -1.0], [-1.0, 1.0]], dtype=torch.float)
+    kee = (
+        (A * E) / (c * 12) * torch.tensor([[1.0, -1.0], [-1.0, 1.0]], dtype=torch.float)
+    )
     ke = T.t() @ kee @ T
 
     # Assembly into the global stiffness matrix
     indices = (info[i, :] - 1).long()
-    K_global[torch.meshgrid(indices, indices, indexing='ij')] += ke
+    K_global[torch.meshgrid(indices, indices, indexing="ij")] += ke
 
 # Applying boundary conditions
 mask = torch.ones(max_dof, dtype=torch.bool)
